@@ -23,19 +23,19 @@ function getCenter(handles: any) {
 }
 
 export default function(
-  mouseEventData: any,
+  eventData: any,
   toolType: any,
   data: any,
   handle: any,
   doneMovingCallback: any,
   preventHandleOutsideImage: any,
 ) {
-  const { image, currentPoints, element, buttons } = mouseEventData
+  const { image, currentPoints, element, buttons } = eventData
   const distanceFromTool = {
     x: handle.x - currentPoints.image.x,
     y: handle.y - currentPoints.image.y,
   }
-  const { columns } = mouseEventData.image
+  const { columns } = eventData.image
 
   function mouseDragCallback(e: any) {
     const eventData = e.detail
@@ -124,6 +124,7 @@ export default function(
   }
 
   element.addEventListener(EVENTS.MOUSE_DRAG, mouseDragCallback)
+  element.addEventListener(EVENTS.TOUCH_DRAG, mouseDragCallback);
 
   function mouseUpCallback() {
     handle.active = false
@@ -137,6 +138,21 @@ export default function(
     }
   }
 
+  function touchEndCallback() {
+    handle.active = false;
+    element.removeEventListener(EVENTS.TOUCH_DRAG, mouseDragCallback);
+    element.removeEventListener(EVENTS.TOUCH_END, touchEndCallback);
+    element.removeEventListener(EVENTS.TOUCH_DRAG_END, touchEndCallback);
+    cornerstone.updateImage(element);
+
+    if (typeof doneMovingCallback === 'function') {
+      doneMovingCallback();
+    }
+  }
+
   element.addEventListener(EVENTS.MOUSE_UP, mouseUpCallback)
   element.addEventListener(EVENTS.MOUSE_CLICK, mouseUpCallback)
+
+  element.addEventListener(EVENTS.TOUCH_END, touchEndCallback);
+  element.addEventListener(EVENTS.TOUCH_DRAG_END, touchEndCallback);
 }

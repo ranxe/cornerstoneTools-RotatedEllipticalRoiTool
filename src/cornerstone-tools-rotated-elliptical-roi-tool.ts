@@ -48,7 +48,7 @@ export default class RotatedEllipticalRoiTool extends BaseAnnotationTool {
     this.throttledUpdateCachedStats = throttle(this.updateCachedStats, 110)
   }
 
-  addNewMeasurement(evt: any) {
+  addNewMeasurement(evt: any, interactionType: any ) {
     const eventData = evt.detail
     const { element, image } = eventData
     const measurementData: any = this.createNewMeasurement(eventData)
@@ -64,7 +64,7 @@ export default class RotatedEllipticalRoiTool extends BaseAnnotationTool {
       measurementData,
       end,
       {},
-      'mouse',
+      interactionType,
       () => {
         if (anyHandlesOutsideImage(eventData, measurementData.handles)) {
           // Delete the measurement
@@ -290,7 +290,7 @@ export default class RotatedEllipticalRoiTool extends BaseAnnotationTool {
 
       cornerstone.updateImage(element)
       element.addEventListener(EVENTS.MOUSE_MOVE, this.mouseMoveCallback)
-      element.addEventListener(EVENTS.TOUCH_START, this._moveCallback)
+      element.addEventListener(EVENTS.TOUCH_DRAG, this.mouseMoveCallback);
     }
 
     const coords = eventData.startPoints.canvas
@@ -315,6 +315,7 @@ export default class RotatedEllipticalRoiTool extends BaseAnnotationTool {
 
       if (handle) {
         element.removeEventListener(EVENTS.MOUSE_MOVE, this.mouseMoveCallback)
+        element.removeEventListener(EVENTS.TOUCH_DRAG, this.mouseMoveCallback);
         data.active = true
         movePerpendicularHandle(
           eventData,
@@ -349,7 +350,8 @@ export default class RotatedEllipticalRoiTool extends BaseAnnotationTool {
       if (this.pointNearTool(element, data, coords)) {
         data.active = true
         element.removeEventListener(EVENTS.MOUSE_MOVE, this.mouseMoveCallback)
-        moveAllHandles(e, data, toolData, this.name, opt, handleDoneMove)
+        element.removeEventListener(EVENTS.TOUCH_DRAG, this.mouseMoveCallback);
+        // moveAllHandles(e, data, toolData, this.name, opt, handleDoneMove)
         e.stopImmediatePropagation()
         e.stopPropagation()
         e.preventDefault()
