@@ -34,7 +34,7 @@ const calculateSUV = cornerstoneTools.import('util/calculateSUV')
 export default class RotatedEllipticalRoiTool extends BaseAnnotationTool {
   constructor(props = {}) {
     const defaultProps = {
-      name: 'RotatedEllipticalRoi',
+      name: 'RotatedEllipticalRoiMouseTouch',
       supportedInteractionTypes: ['Mouse', 'Touch'],
       configuration: {
         // showMinMax: false,
