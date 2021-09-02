@@ -1,6 +1,6 @@
 {
   "name": "cornerstone-tools-rotated-elliptical-roi-mouse-touch-tool",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "An annotation tool of drawing rotated elliptical roi. It is 3rd party library of cornerstoneTools",
   "keywords": [
     "cornerstone",

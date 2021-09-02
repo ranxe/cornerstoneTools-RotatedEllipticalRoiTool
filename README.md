@@ -19,13 +19,13 @@ You can try to test this tool in [here](https://examples.sisobus.com/rotated-ell
 ## Installation
 
 ```sh
-$ yarn add cornerstone-tools-rotated-elliptical-roi-tool
+$ yarn add cornerstone-tools-rotated-elliptical-roi-mouse-touch-tool
 ```
 
 or
 
 ```sh
-$ npm i cornerstone-tools-rotated-elliptical-roi-tool
+$ npm i cornerstone-tools-rotated-elliptical-roi-mouse-touch-tool
 ```
 
 This library has dependencies below
