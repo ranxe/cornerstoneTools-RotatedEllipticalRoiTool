@@ -1,3 +1,10 @@
+---
+Modified cornerstoneTools-RotatedEllipticalRoiTool for touch event
+
+(forked from https://github.com/sisobus/cornerstoneTools-RotatedEllipticalRoiTool)
+
+---
+
 # cornerstoneTools-RotatedEllipticalRoiTool
 
 
